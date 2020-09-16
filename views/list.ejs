@@ -14,9 +14,10 @@
 
 
 <ul>
-	<% for(let i = 0; i < renderList.length; i++){ %>
-		<li> <%= renderList[i] %> </li>
-	<% } %>
+		<% renderList.forEach(element =>{ %> 
+
+			<li><%=  element.todo %></li>
+		<% }); %>
 </ul>
 
 

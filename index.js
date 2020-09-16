@@ -31,25 +31,17 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
-const silence = new Todo({ todo: 'Turn off volume' });
-console.log(silence); 
+// const silence = new Todo({ todo: 'Turn off volume' });
+// console.log(silence); 
 
 
 
 
 
-  silence.save(function (err, silence) {
-    if (err) return console.error(err);
-    console.log("Success!")
-  });
-
-  Todo.find(function(err, todo) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(todo[1]["_id"]);
-    }
-  });
+//   silence.save(function (err, silence) {
+//     if (err) return console.error(err);
+//     console.log("Success!")
+//   });
 
 
 
@@ -60,30 +52,50 @@ console.log(silence);
 
 
 
-var list = ["An item"];
+
+
+
 
 
 app.get('/', (req, res) => {
-
+	
 	var today = new Date();
 	var options = {
 		weekday: "long",
 		day: "numeric",
 		month: "long"
 	};
-
+	
 	var day = today.toLocaleDateString("en-US", options);
 
-	res.render("list", {kindOfDay: day, renderList: list});
+
+	Todo.find(function(err, todo) {
+    if (err) {
+      console.log(err);
+    } else {
+    	console.log(todo);
+      res.render("list", {kindOfDay: day, renderList: todo});
+    }
+  });
+
+
+
+
+	
+	
 
 
 
 });
 
 app.post("/", (req, res) => {
-	list.push(req.body.newItem);
-
-	res.redirect('/')
+	let newToDo = req.body.newItem;
+	let newToDoSchema = new Todo({ todo: newToDo });
+	newToDoSchema.save(function (err, silence) {
+    if (err) return console.error(err);
+    res.redirect('/')
+  });
+	
 })
 
 app.listen(port, () => {
