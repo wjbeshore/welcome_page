@@ -7,8 +7,29 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 
+let quote = undefined;
+let url = "https://quotes.rest/qod.json?category=inspire";
 
+https.get(url,(res) => {
+    let body = "";
 
+    res.on("data", (chunk) => {
+        body += chunk;
+    });
+
+    res.on("end", () => {
+        try {
+            let json = JSON.parse(body);
+            quote = json.contents.quotes[0].quote;
+            console.log(quote)
+        } catch (error) {
+            console.error(error.message);
+        };
+    });
+
+}).on("error", (error) => {
+    console.error(error.message);
+});
 
 
 
