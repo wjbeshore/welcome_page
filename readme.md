@@ -1,1 +1,1 @@
-Project that will be a welcome page in browser. Will use Node.JS backend to pull weather information, todo list, calendar, and quote from api's and database. Frontend using typical web development languages and EJS.
+Project that will be a welcome page in browser. Will use Node.JS backend to pull weather information, todo list, calendar, and quote from api's and database. Frontend using typical web development languages and EJS. Using database and user management it will also be saved for future user sessions.
